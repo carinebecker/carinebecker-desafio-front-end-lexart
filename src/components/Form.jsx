@@ -18,7 +18,7 @@ export function Form() {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		fetch("/api/bf3c6a69da854c03926955a6c2051f0f/abm-stock", {
+		fetch("/api/00acaa3ac09645bc9ebf58dec2a3775f/abm-stock", {
 			method: "POST",
 			headers: { "content-type": "application/json"},
 			body: JSON.stringify(payload),
