@@ -1,12 +1,15 @@
 import './App.css';
 import { Form } from './components/Form';
 import { Table } from './components/Table';
+import { StockProvider } from './context/StockProvider';
 
 function App() {
   return (
     <div className="App">
-      <Form />
-      <Table />
+      <StockProvider>
+        <Form />
+        <Table />
+      </StockProvider>
     </div>
   );
 }
