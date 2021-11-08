@@ -1,69 +1,74 @@
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useContext } from 'react';
+import StockContext from '../context/StockContext';
+import { renderButton } from './util/renderButton';
 
 export function Table() {
-	const [data, setData] = useState();
+	const {
+		endpoint,
+		setForceUpdate,
+		setPayload,
+		tableData,
+		isFetching,
+		setIsEditing,
+	} = useContext(StockContext);
 
-	useEffect(() => {
-        setData([
-            {
-                _id: "6185db7197069d03e848f9cf",
-                product: "default",
-                client: "default",
-                quantity: "2",
-                price: "1.09",
-                active: "no",
-            },
-        ])
-		// fetch("/api/00acaa3ac09645bc9ebf58dec2a3775f/abm-stock", {
-		// 	method: "GET",
-		// 	headers: { "content-type": "application/json" },
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((data) => setData(data))
-		// 	.catch((err) => console.log(err));
-	}, []);
+	function handleSelect(id) {
+		fetch(`${endpoint}/${id}`, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' },
+		})
+			.then((response) => response.json())
+			.then((data) => setPayload(data))
+			.then(() => setIsEditing(true))
+			.catch((err) => console.log(err));
+	}
 
-    function renderSelectBtn() {
-        return <button>Select</button>
-    }
-
-    function renderDeleteBtn() {
-        return <button>Delete</button>
-    }
+	function handleDelete(id) {
+		window.confirm('Are you sure you want to delete the item?');
+		fetch(`${endpoint}/${id}`, {
+			method: 'DELETE',
+			headers: { 'content-type': 'application/json' },
+		})
+			.then(() => setForceUpdate((value) => value + 1))
+			.catch((err) => console.log(err));
+	}
 
 	function renderData() {
-		return data.map(({ _id: id, quantity, product, price, client, active }) => (
-            <tr>
-                <td>{ id }</td>
-                <td>{ quantity }</td>
-                <td>{ product }</td>
-                <td>{ price }</td>
-                <td>{ client }</td>
-                <td>{ active }</td>
-                <td>{ renderSelectBtn() }</td>
-                <td>{ renderDeleteBtn() }</td>
-            </tr>
-        ));
+		return tableData.map(
+			({ _id: id, quantity, product, price, client, active }) => (
+				<tr key={id}>
+					<td>{id}</td>
+					<td>{quantity}</td>
+					<td>{product}</td>
+					<td>${price}</td>
+					<td>{client}</td>
+					<td>{active}</td>
+					<td>{renderButton('Select', () => handleSelect(id))}</td>
+					<td>{renderButton('Delete', () => handleDelete(id))}</td>
+				</tr>
+			)
+		);
 	}
 
 	return (
 		<div>
-			<table>
-                <thead>
-                    <tr>
-                        <th>_Id</th>
-                        <th>Quantity</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Client</th>
-                        <th>Active</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!data ? <p>loading data...</p> : renderData()}
-                </tbody>
-            </table>
+			{isFetching ? (
+				<p>loading data...</p>
+			) : (
+				<table>
+					<thead>
+						<tr>
+							<th>_Id</th>
+							<th>Quantity</th>
+							<th>Product Name</th>
+							<th>Price</th>
+							<th>Client</th>
+							<th>Active</th>
+						</tr>
+					</thead>
+					<tbody>{renderData()}</tbody>
+				</table>
+			)}
 		</div>
 	);
 }
