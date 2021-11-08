@@ -24,13 +24,15 @@ export function Table() {
 	}
 
 	function handleDelete(id) {
-		window.confirm('Are you sure you want to delete the item?');
-		fetch(`${endpoint}/${id}`, {
+		const deleteItem = window.confirm(`Delete item ${id}?`);
+		if (deleteItem) {
+             fetch(`${endpoint}/${id}`, {
 			method: 'DELETE',
 			headers: { 'content-type': 'application/json' },
 		})
 			.then(() => setForceUpdate((value) => value + 1))
 			.catch((err) => console.log(err));
+        } return
 	}
 
 	function renderData() {
