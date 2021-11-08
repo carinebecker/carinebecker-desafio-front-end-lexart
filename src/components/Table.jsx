@@ -64,6 +64,8 @@ export function Table() {
 							<th>Price</th>
 							<th>Client</th>
 							<th>Active</th>
+                            <th></th>
+                            <th></th>
 						</tr>
 					</thead>
 					<tbody>{ renderData() }</tbody>

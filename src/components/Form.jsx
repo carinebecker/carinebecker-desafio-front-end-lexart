@@ -48,7 +48,7 @@ export function Form() {
 
 	return (
 		<form onSubmit={ handleSubmit } className='form-submit-stock'>
-			<label>
+			<label className="label-flex-column">
 				Quantity
 				<input
 					type='number'
@@ -61,7 +61,7 @@ export function Form() {
 					required
 				/>
 			</label>
-			<label>
+			<label className="label-flex-column">
 				Price
 				<input
 					type='number'
@@ -73,41 +73,43 @@ export function Form() {
 					required
 				/>
 			</label>
-			<label>
+			<label className="label-flex-column">
 				Product
 				<select name='product' id='product' onChange={ handleChange }>
 					<option value='default'>default_product</option>
 				</select>
 			</label>
-			<label>
+			<label className="label-flex-column">
 				Client
 				<select name='client' id='client' onChange={ handleChange }>
 					<option value='default'>default_client</option>
 				</select>
 			</label>
-			<label>
+			<label className="label-flex-column">
 				Active
-				<label htmlFor='active_yes'>
-					<input
-						type='radio'
-						name='active'
-						id='active_yes'
-						value='yes'
-						onChange={ handleChange }
-						required
-					/>
-					yes
-				</label>
-				<label htmlFor='active_no'>
-					<input
-						type='radio'
-						name='active'
-						id='active_no'
-						value='no'
-						onChange={ handleChange }
-					/>
-					no
-				</label>
+				<div>
+					<label htmlFor='active_yes'>
+						<input
+							type='radio'
+							name='active'
+							id='active_yes'
+							value='yes'
+							onChange={ handleChange }
+							required
+						/>
+						yes
+					</label>
+					<label htmlFor='active_no'>
+						<input
+							type='radio'
+							name='active'
+							id='active_no'
+							value='no'
+							onChange={ handleChange }
+						/>
+						no
+					</label>
+				</div>
 			</label>
 			{
                 isEditing === true

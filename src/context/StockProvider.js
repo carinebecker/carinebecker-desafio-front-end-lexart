@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StockContext from './StockContext';
 
 export function StockProvider({ children }) {
-	const endpoint = '/api/aa68d1c198b34361a551a4a728d8ea49/abm-stock';
+	const endpoint = '/api/e192eb978c7c426bb2e519da4c9e7a97/abm-stock';
 	const payloadInitialState = {
 		product: 'default',
 		client: 'default',
