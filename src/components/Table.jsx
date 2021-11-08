@@ -43,8 +43,8 @@ export function Table() {
 					<td>${price}</td>
 					<td>{client}</td>
 					<td>{active}</td>
-					<td>{renderButton('Select', () => handleSelect(id))}</td>
-					<td>{renderButton('Delete', () => handleDelete(id))}</td>
+					<td>{renderButton('Select', () => handleSelect(id), 'table-button green')}</td>
+					<td>{renderButton('Delete', () => handleDelete(id), 'table-button red')}</td>
 				</tr>
 			)
 		);
@@ -55,7 +55,7 @@ export function Table() {
 			{isFetching ? (
 				<p>loading data...</p>
 			) : (
-				<table>
+				<table className='stocks-table'>
 					<thead>
 						<tr>
 							<th>_Id</th>
@@ -66,7 +66,7 @@ export function Table() {
 							<th>Active</th>
 						</tr>
 					</thead>
-					<tbody>{renderData()}</tbody>
+					<tbody>{ renderData() }</tbody>
 				</table>
 			)}
 		</div>

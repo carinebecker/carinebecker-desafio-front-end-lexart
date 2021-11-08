@@ -47,7 +47,7 @@ export function Form() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={ handleSubmit } className='form-submit-stock'>
 			<label>
 				Quantity
 				<input
@@ -56,8 +56,8 @@ export function Form() {
 					step='1'
 					name='quantity'
 					placeholder='0'
-					onChange={handleChange}
-					value={payload.quantity}
+					onChange={ handleChange }
+					value={ payload.quantity }
 					required
 				/>
 			</label>
@@ -68,20 +68,20 @@ export function Form() {
 					name='price'
 					min='1'
 					placeholder='0.00'
-					onChange={handleChange}
-					value={payload.price}
+					onChange={ handleChange }
+					value={ payload.price }
 					required
 				/>
 			</label>
 			<label>
 				Product
-				<select name='product' id='product' onChange={handleChange}>
+				<select name='product' id='product' onChange={ handleChange }>
 					<option value='default'>default_product</option>
 				</select>
 			</label>
 			<label>
 				Client
-				<select name='client' id='client' onChange={handleChange}>
+				<select name='client' id='client' onChange={ handleChange }>
 					<option value='default'>default_client</option>
 				</select>
 			</label>
@@ -93,8 +93,7 @@ export function Form() {
 						name='active'
 						id='active_yes'
 						value='yes'
-						checked={payload.active === 'yes'}
-						onChange={handleChange}
+						onChange={ handleChange }
 						required
 					/>
 					yes
@@ -105,14 +104,16 @@ export function Form() {
 						name='active'
 						id='active_no'
 						value='no'
-						onChange={handleChange}
+						onChange={ handleChange }
 					/>
 					no
 				</label>
 			</label>
-			{isEditing === true
-				? renderButton('Edit', () => handleEdit(payload._id))
-				: renderButton('Register', (e) => handleSubmit(e))}
+			{
+                isEditing === true
+                    ? renderButton('Edit', () => handleEdit(payload._id), 'form-button')
+                    : renderButton('Register', (e) => handleSubmit(e), 'form-button')
+            }
 		</form>
 	);
 }
